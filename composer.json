@@ -1,0 +1,27 @@
+{
+    "name": "abibidu/bitmask",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Romanenko",
+            "email": "me@pavlunya.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abibidu\\Bit\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
