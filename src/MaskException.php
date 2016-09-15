@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Abibidu\Bit;
 
 final class MaskException extends \Exception
