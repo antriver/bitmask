@@ -1,8 +1,20 @@
-# BitMask
+# BitMask 
+
+[![Build Status](https://travis-ci.org/pavlunya/Bitmask.svg?branch=master)](https://travis-ci.org/pavlunya/Bitmask)
 
 ## Installation
 
-## Usage example
+Add the following dependency to your composer.json file.
+
+```json
+{
+    "require": {
+        "abibidu/bitmask": "^1.0"
+    }
+}
+```
+
+## Example usage
 
 For example we have User class that can have different roles.
 
