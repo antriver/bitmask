@@ -46,13 +46,14 @@ class User
 }
 ```
 
-Now we are able to create a use.
+Now we are able to create a user.
 
 ```php
 $user = new User();
 
 $user->becomeAdmin(); // User now has admin role
-$user->becomeAdmin(); // Throws MaskException because role has been already set and mask is in strict mode
+$user->becomeAdmin(); // Throws MaskException because role has been already set
+                      // and mask is in strict mode
 
 $user->isAdmin(); // Returns true
 $user->isCustomer(); // Returns false

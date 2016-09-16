@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Abibidu\Bit;
 
-class Mask
+class Mask implements \JsonSerializable
 {
     const FLAG_1 = 2 ^ 0;
     const FLAG_2 = 2 ^ 1;
@@ -42,12 +42,12 @@ class Mask
     /**
      * @var int
      */
-    private $mask = 0;
+    protected $mask = 0;
 
     /**
      * @var bool
      */
-    private $strictMode = true;
+    protected $strictMode = true;
 
     /**
      * @param int  $mask
@@ -100,7 +100,23 @@ class Mask
     /**
      * @return int
      */
-    public function getValue(): int
+    public function get(): int
+    {
+        return $this->mask;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string) $this->mask;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize(): int
     {
         return $this->mask;
     }
