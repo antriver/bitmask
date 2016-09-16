@@ -6,6 +6,39 @@ namespace Abibidu\Bit;
 
 class Mask
 {
+    const FLAG_1 = 2 ^ 0;
+    const FLAG_2 = 2 ^ 1;
+    const FLAG_3 = 2 ^ 2;
+    const FLAG_4 = 2 ^ 3;
+    const FLAG_5 = 2 ^ 4;
+    const FLAG_6 = 2 ^ 5;
+    const FLAG_7 = 2 ^ 6;
+    const FLAG_8 = 2 ^ 7;
+    const FLAG_9 = 2 ^ 8;
+    const FLAG_10 = 2 ^ 9;
+    const FLAG_11 = 2 ^ 10;
+    const FLAG_12 = 2 ^ 11;
+    const FLAG_13 = 2 ^ 12;
+    const FLAG_14 = 2 ^ 13;
+    const FLAG_15 = 2 ^ 14;
+    const FLAG_16 = 2 ^ 15;
+    const FLAG_17 = 2 ^ 16;
+    const FLAG_18 = 2 ^ 17;
+    const FLAG_19 = 2 ^ 18;
+    const FLAG_20 = 2 ^ 19;
+    const FLAG_21 = 2 ^ 20;
+    const FLAG_22 = 2 ^ 21;
+    const FLAG_23 = 2 ^ 22;
+    const FLAG_24 = 2 ^ 23;
+    const FLAG_25 = 2 ^ 24;
+    const FLAG_26 = 2 ^ 25;
+    const FLAG_27 = 2 ^ 26;
+    const FLAG_28 = 2 ^ 27;
+    const FLAG_29 = 2 ^ 28;
+    const FLAG_30 = 2 ^ 29;
+    const FLAG_31 = 2 ^ 30;
+    const FLAG_32 = 2 ^ 31;
+
     /**
      * @var int
      */
