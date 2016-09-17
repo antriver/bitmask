@@ -60,6 +60,17 @@ class Mask implements \JsonSerializable
     }
 
     /**
+     * @param string $mask
+     * @param bool   $strictMode
+     *
+     * @return static
+     */
+    public static function fromString(string $mask, bool $strictMode = true)
+    {
+        return new static((int) $mask, $strictMode);
+    }
+
+    /**
      * @param int $flag
      *
      * @return bool
