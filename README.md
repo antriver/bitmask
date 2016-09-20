@@ -1,9 +1,9 @@
 # BitMask 
 
-[![Build Status](https://img.shields.io/travis/pavlunya/Bitmask.svg)](https://travis-ci.org/pavlunya/Bitmask)
-[![Code Coverage](https://img.shields.io/codecov/c/github/pavlunya/Bitmask.svg)](https://codecov.io/gh/pavlunya/Bitmask)
-[![Packagist](https://img.shields.io/packagist/v/abibidu/bitmask.svg)](https://packagist.org/packages/abibidu/bitmask)
-[![MIT License](https://img.shields.io/github/license/pavlunya/Bitmask.svg)](https://github.com/pavlunya/Bitmask/blob/master/LICENSE.md)
+[![Build Status](https://img.shields.io/travis/pavlunya/Bitmask.svg?style=flat-square)](https://travis-ci.org/pavlunya/Bitmask)
+[![Code Coverage](https://img.shields.io/codecov/c/github/pavlunya/Bitmask.svg?style=flat-square)](https://codecov.io/gh/pavlunya/Bitmask)
+[![Packagist](https://img.shields.io/packagist/v/abibidu/bitmask.svg?style=flat-square)](https://packagist.org/packages/abibidu/bitmask)
+[![MIT License](https://img.shields.io/github/license/pavlunya/Bitmask.svg?style=flat-square)](https://github.com/pavlunya/Bitmask/blob/master/LICENSE.md)
 
 
 ## Installation
