@@ -6,14 +6,21 @@ namespace Abibidu\Bit;
 
 class MaskExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    const TEST_MASK = 73;
-    const TEST_FLAG = 32;
+    /**
+     * @var Mask
+     */
+    private $mask;
+
+    protected function setUp()
+    {
+        $this->mask = new Mask(Mask::FLAG_13);
+    }
 
     public function testThatFlagIsPresentExceptionInstanceRight()
     {
         $this->assertInstanceOf(
             MaskException::class,
-            MaskException::whenFlagIsPresentInMask(self::TEST_FLAG, self::TEST_MASK)
+            MaskException::whenFlagIsPresentInMask($this->mask, Mask::FLAG_13)
         );
     }
 
@@ -21,23 +28,23 @@ class MaskExceptionTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             MaskException::class,
-            MaskException::whenFlagIsAbsentInMask(self::TEST_FLAG, self::TEST_MASK)
+            MaskException::whenFlagIsAbsentInMask($this->mask, Mask::FLAG_7)
         );
     }
 
     public function testThatFlagIsPresentExceptionHasNeededInformation()
     {
-        $message = MaskException::whenFlagIsPresentInMask(self::TEST_FLAG, self::TEST_MASK)->getMessage();
+        $message = MaskException::whenFlagIsPresentInMask($this->mask, Mask::FLAG_13)->getMessage();
 
-        $this->assertContains(sprintf('%032b', self::TEST_FLAG), $message);
-        $this->assertContains(sprintf('%032b', self::TEST_MASK), $message);
+        $this->assertContains(sprintf('%032b', $this->mask->get()), $message);
+        $this->assertContains(sprintf('%032b', Mask::FLAG_13), $message);
     }
 
     public function testThatFlagIsAbsentExceptionHasNeededInformation()
     {
-        $message = MaskException::whenFlagIsAbsentInMask(self::TEST_FLAG, self::TEST_MASK)->getMessage();
+        $message = MaskException::whenFlagIsAbsentInMask($this->mask, Mask::FLAG_7)->getMessage();
 
-        $this->assertContains(sprintf('%032b', self::TEST_FLAG), $message);
-        $this->assertContains(sprintf('%032b', self::TEST_MASK), $message);
+        $this->assertContains(sprintf('%032b', $this->mask->get()), $message);
+        $this->assertContains(sprintf('%032b', Mask::FLAG_7), $message);
     }
 }

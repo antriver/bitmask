@@ -8,38 +8,38 @@ class Mask implements \JsonSerializable
 {
     const EMPTY_MASK = 0;
 
-    const FLAG_1 = 2 ^ 0;
-    const FLAG_2 = 2 ^ 1;
-    const FLAG_3 = 2 ^ 2;
-    const FLAG_4 = 2 ^ 3;
-    const FLAG_5 = 2 ^ 4;
-    const FLAG_6 = 2 ^ 5;
-    const FLAG_7 = 2 ^ 6;
-    const FLAG_8 = 2 ^ 7;
-    const FLAG_9 = 2 ^ 8;
-    const FLAG_10 = 2 ^ 9;
-    const FLAG_11 = 2 ^ 10;
-    const FLAG_12 = 2 ^ 11;
-    const FLAG_13 = 2 ^ 12;
-    const FLAG_14 = 2 ^ 13;
-    const FLAG_15 = 2 ^ 14;
-    const FLAG_16 = 2 ^ 15;
-    const FLAG_17 = 2 ^ 16;
-    const FLAG_18 = 2 ^ 17;
-    const FLAG_19 = 2 ^ 18;
-    const FLAG_20 = 2 ^ 19;
-    const FLAG_21 = 2 ^ 20;
-    const FLAG_22 = 2 ^ 21;
-    const FLAG_23 = 2 ^ 22;
-    const FLAG_24 = 2 ^ 23;
-    const FLAG_25 = 2 ^ 24;
-    const FLAG_26 = 2 ^ 25;
-    const FLAG_27 = 2 ^ 26;
-    const FLAG_28 = 2 ^ 27;
-    const FLAG_29 = 2 ^ 28;
-    const FLAG_30 = 2 ^ 29;
-    const FLAG_31 = 2 ^ 30;
-    const FLAG_32 = 2 ^ 31;
+    const FLAG_1  = 0b00000000000000000000000000000001; // 1
+    const FLAG_2  = 0b00000000000000000000000000000010; // 2
+    const FLAG_3  = 0b00000000000000000000000000000100; // 4
+    const FLAG_4  = 0b00000000000000000000000000001000; // 8
+    const FLAG_5  = 0b00000000000000000000000000010000; // 16
+    const FLAG_6  = 0b00000000000000000000000000100000; // 32
+    const FLAG_7  = 0b00000000000000000000000001000000; // 64
+    const FLAG_8  = 0b00000000000000000000000010000000; // 128
+    const FLAG_9  = 0b00000000000000000000000100000000; // 256
+    const FLAG_10 = 0b00000000000000000000001000000000; // 512
+    const FLAG_11 = 0b00000000000000000000010000000000; // 1024
+    const FLAG_12 = 0b00000000000000000000100000000000; // 2048
+    const FLAG_13 = 0b00000000000000000001000000000000; // 4096
+    const FLAG_14 = 0b00000000000000000010000000000000; // 8192
+    const FLAG_15 = 0b00000000000000000100000000000000; // 16384
+    const FLAG_16 = 0b00000000000000001000000000000000; // 32768
+    const FLAG_17 = 0b00000000000000010000000000000000; // 65536
+    const FLAG_18 = 0b00000000000000100000000000000000; // 131072
+    const FLAG_19 = 0b00000000000001000000000000000000; // 262144
+    const FLAG_20 = 0b00000000000010000000000000000000; // 524288
+    const FLAG_21 = 0b00000000000100000000000000000000; // 1048576
+    const FLAG_22 = 0b00000000001000000000000000000000; // 2097152
+    const FLAG_23 = 0b00000000010000000000000000000000; // 4194304
+    const FLAG_24 = 0b00000000100000000000000000000000; // 8388608
+    const FLAG_25 = 0b00000001000000000000000000000000; // 16777216
+    const FLAG_26 = 0b00000010000000000000000000000000; // 33554432
+    const FLAG_27 = 0b00000100000000000000000000000000; // 67108864
+    const FLAG_28 = 0b00001000000000000000000000000000; // 134217728
+    const FLAG_29 = 0b00010000000000000000000000000000; // 268435456
+    const FLAG_30 = 0b00100000000000000000000000000000; // 536870912
+    const FLAG_31 = 0b01000000000000000000000000000000; // 1073741824
+    const FLAG_32 = 0b10000000000000000000000000000000; // 2147483648
 
     /**
      * @var int
@@ -67,7 +67,7 @@ class Mask implements \JsonSerializable
      *
      * @return static
      */
-    public static function fromString(string $mask = self::EMPTY_MASK, bool $strictMode = true)
+    public static function fromString(string $mask, bool $strictMode = true)
     {
         return new static((int) $mask, $strictMode);
     }
@@ -90,7 +90,7 @@ class Mask implements \JsonSerializable
     public function add(int $flag)
     {
         if ($this->strictMode && $this->has($flag)) {
-            throw MaskException::whenFlagIsPresentInMask($flag, $this->mask);
+            throw MaskException::whenFlagIsPresentInMask($this, $flag);
         }
 
         $this->mask |= $flag;
@@ -104,7 +104,7 @@ class Mask implements \JsonSerializable
     public function remove(int $flag)
     {
         if ($this->strictMode && !$this->has($flag)) {
-            throw MaskException::whenFlagIsAbsentInMask($flag, $this->mask);
+            throw MaskException::whenFlagIsAbsentInMask($this, $flag);
         }
 
         $this->mask &= ~$flag;
