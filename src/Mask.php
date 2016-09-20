@@ -6,6 +6,8 @@ namespace Abibidu\Bit;
 
 class Mask implements \JsonSerializable
 {
+    const EMPTY_MASK = 0;
+
     const FLAG_1 = 2 ^ 0;
     const FLAG_2 = 2 ^ 1;
     const FLAG_3 = 2 ^ 2;
@@ -42,7 +44,7 @@ class Mask implements \JsonSerializable
     /**
      * @var int
      */
-    protected $mask = 0;
+    protected $mask = self::EMPTY_MASK;
 
     /**
      * @var bool
@@ -53,7 +55,7 @@ class Mask implements \JsonSerializable
      * @param int  $mask
      * @param bool $strictMode
      */
-    public function __construct(int $mask = 0, bool $strictMode = true)
+    public function __construct(int $mask = self::EMPTY_MASK, bool $strictMode = true)
     {
         $this->mask = $mask;
         $this->strictMode = $strictMode;
@@ -65,7 +67,7 @@ class Mask implements \JsonSerializable
      *
      * @return static
      */
-    public static function fromString(string $mask, bool $strictMode = true)
+    public static function fromString(string $mask = self::EMPTY_MASK, bool $strictMode = true)
     {
         return new static((int) $mask, $strictMode);
     }

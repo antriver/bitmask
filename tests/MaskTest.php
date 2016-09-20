@@ -6,22 +6,21 @@ namespace Abibidu\Bit;
 
 class MaskTest extends \PHPUnit_Framework_TestCase
 {
-    const TEST_MASK_INT = 42;
-    const TEST_MASK_STRING = '42';
+    const TEST_MASK = 42;
 
     public function testMaskGetter()
     {
-        $mask = new Mask(self::TEST_MASK_INT);
+        $mask = new Mask(self::TEST_MASK);
 
-        $this->assertSame(self::TEST_MASK_INT, $mask->get());
-        $this->assertNotSame(self::TEST_MASK_STRING, $mask->get());
+        $this->assertSame(self::TEST_MASK, $mask->get());
+        $this->assertNotSame((string) self::TEST_MASK, $mask->get());
     }
 
     public function testMaskAsStringBehaviour()
     {
-        $mask = new Mask(self::TEST_MASK_INT);
+        $mask = new Mask(self::TEST_MASK);
 
-        $this->assertSame(self::TEST_MASK_STRING, $mask->__toString());
-        $this->assertNotSame(self::TEST_MASK_INT, $mask->__toString());
+        $this->assertSame((string) self::TEST_MASK, $mask->__toString());
+        $this->assertNotSame(self::TEST_MASK, $mask->__toString());
     }
 }

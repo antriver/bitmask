@@ -42,7 +42,7 @@ class User
         $this->roles->add(self::ROLE_ADMIN);
     }
     
-    public functions isAdmin()
+    public function isAdmin()
     {
         return $this->roles->has(self::ROLE_ADMIN);
     }
