@@ -53,9 +53,9 @@ class User
     
     ...
     
-    pulic function isCustomer()
+    public function isCustomer()
     {
-        eturn $this->roles->has(self::ROLE_CUSTOMER);
+        return $this->roles->has(self::ROLE_CUSTOMER);
     }
     
     ...

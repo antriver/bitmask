@@ -1,11 +1,15 @@
 {
     "name": "abibidu/bitmask",
     "type": "library",
+    "description": "Class makes work with bit masks much easier",
+    "keywords": ["bitwise", "bitmask"],
+    "homepage": "https://github.com/pavlunya/Bitmask",
     "license": "MIT",
     "authors": [
         {
             "name": "Pavel Romanenko",
-            "email": "me@pavlunya.com"
+            "email": "me@pavlunya.com",
+            "homepage": "http://pavlunya.com"
         }
     ],
     "require": {
@@ -19,6 +23,7 @@
             "Abibidu\\Bit\\": "src/"
         }
     },
+    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
