@@ -103,7 +103,7 @@ class Mask implements \JsonSerializable
      *
      * @return bool
      */
-    public function hasOne(int ...$flags): bool
+    public function hasOneOf(int ...$flags): bool
     {
         foreach ($flags as $flag) {
             if ($this->has($flag)) {

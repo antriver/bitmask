@@ -46,6 +46,28 @@ class MaskTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($mask->has(Mask::FLAG_13));
     }
 
+    public function testIfHasAllFlags()
+    {
+        $mask = new Mask(Mask::EMPTY_MASK | Mask::FLAG_3 | Mask::FLAG_13 | Mask::FLAG_23);
+
+        $this->assertTrue($mask->hasAll(Mask::FLAG_3, Mask::FLAG_13, Mask::FLAG_23));
+        $this->assertTrue($mask->hasAll(Mask::FLAG_3, Mask::FLAG_13));
+        $this->assertTrue($mask->hasAll(Mask::FLAG_3));
+
+        $this->assertFalse($mask->hasAll(Mask::FLAG_3, Mask::FLAG_13, Mask::FLAG_27));
+    }
+
+    public function testIfHasOneOfFlags()
+    {
+        $mask = new Mask(Mask::EMPTY_MASK | Mask::FLAG_3 | Mask::FLAG_13 | Mask::FLAG_23);
+
+        $this->assertTrue($mask->hasOneOf(Mask::FLAG_3, Mask::FLAG_13, Mask::FLAG_23));
+        $this->assertTrue($mask->hasOneOf(Mask::FLAG_3, Mask::FLAG_13, Mask::FLAG_27));
+        $this->assertTrue($mask->hasOneOf(Mask::FLAG_3, Mask::FLAG_17, Mask::FLAG_27));
+
+        $this->assertFalse($mask->hasOneOf(Mask::FLAG_7, Mask::FLAG_17, Mask::FLAG_27));
+    }
+
     public function testConstants()
     {
         $reflection = new \ReflectionClass(Mask::class);
