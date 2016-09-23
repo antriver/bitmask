@@ -28,7 +28,7 @@ use Abibidu\Bit\Mask;
 class User
 {
     const ROLE_ADMIN = Mask::FLAG_1;
-    const ROLE_MANGER = Mask::FLAG_2;
+    const ROLE_MANAGER = Mask::FLAG_2;
     const ROLE_CUSTOMER = Mask::FLAG_3;
 
     /**

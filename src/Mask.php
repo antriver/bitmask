@@ -83,6 +83,38 @@ class Mask implements \JsonSerializable
     }
 
     /**
+     * @param int[] ...$flags
+     *
+     * @return bool
+     */
+    public function hasAll(int ...$flags): bool
+    {
+        $resultingMask = self::EMPTY_MASK;
+
+        foreach ($flags as $flag) {
+            $resultingMask |= $flag;
+        }
+
+        return (($this->mask & $resultingMask) === $resultingMask);
+    }
+
+    /**
+     * @param int[] ...$flags
+     *
+     * @return bool
+     */
+    public function hasOne(int ...$flags): bool
+    {
+        foreach ($flags as $flag) {
+            if ($this->has($flag)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param int $flag
      *
      * @throws MaskException
