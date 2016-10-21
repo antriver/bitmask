@@ -1,7 +1,7 @@
 {
     "name": "abibidu/bitmask",
     "type": "library",
-    "description": "Class makes work with bit masks much easier",
+    "description": "Bitmask class helps you to use all might of bit masks and don't care about what bitwise operations are. It represents a high-level abstraction that looks like simple and manageable object and behaves like collection.",
     "keywords": ["bitwise", "bitmask"],
     "homepage": "https://github.com/pavlunya/Bitmask",
     "license": "MIT",
