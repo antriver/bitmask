@@ -126,23 +126,45 @@ class MaskTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($mask->has(Mask::FLAG_21));
     }
 
-    /**
-     * @expectedException \Abibidu\Bit\MaskException
-     */
     public function testAlreadyPresentFlagAddition()
     {
-        $mask = new Mask(Mask::FLAG_13);
+        $mask = new Mask(Mask::FLAG_13, false);
 
+        // Should not throw an exception when not in strict mode.
         $mask->add(Mask::FLAG_13);
+
+        $this->assertSame(Mask::FLAG_13, $mask->get());
     }
 
     /**
      * @expectedException \Abibidu\Bit\MaskException
      */
+    public function testAlreadyPresentFlagAdditionInStrictMode()
+    {
+        $mask = new Mask(Mask::FLAG_13);
+
+        // Should throw an exception in strict mode.
+        $mask->add(Mask::FLAG_13);
+    }
+
     public function testAbsentFlagRemoval()
+    {
+        $mask = new Mask(Mask::EMPTY_MASK, false);
+
+        // Should not throw an exception when not in strict mode.
+        $mask->remove(Mask::FLAG_13);
+
+        $this->assertSame(Mask::EMPTY_MASK, $mask->get());
+    }
+
+    /**
+     * @expectedException \Abibidu\Bit\MaskException
+     */
+    public function testAbsentFlagRemovalInStrictMode()
     {
         $mask = new Mask();
 
+        // Should throw an exception in strict mode.
         $mask->remove(Mask::FLAG_13);
     }
 
