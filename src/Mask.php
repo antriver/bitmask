@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Abibidu\Bit;
 
-class Mask implements \JsonSerializable
+use Iterator;
+use JsonSerializable;
+
+class Mask implements JsonSerializable, Iterator
 {
     const EMPTY_MASK = 0;
 
@@ -42,6 +45,16 @@ class Mask implements \JsonSerializable
     const FLAG_32 = 1 << 31; // 0b10000000000000000000000000000000  2147483648
 
     /**
+     * @var int[]
+     */
+    protected $flags = [];
+
+    /**
+     * @var int
+     */
+    protected $iteratorPosition = 0;
+
+    /**
      * @var int
      */
     protected $mask = self::EMPTY_MASK;
@@ -57,7 +70,7 @@ class Mask implements \JsonSerializable
      */
     public function __construct(int $mask = self::EMPTY_MASK, bool $strictMode = true)
     {
-        $this->mask = $mask;
+        $this->set($mask);
         $this->strictMode = $strictMode;
     }
 
@@ -125,7 +138,7 @@ class Mask implements \JsonSerializable
             throw MaskException::whenFlagIsPresentInMask($this, $flag);
         }
 
-        $this->mask |= $flag;
+        $this->set($this->mask | $flag);
     }
 
     /**
@@ -139,7 +152,7 @@ class Mask implements \JsonSerializable
             throw MaskException::whenFlagIsAbsentInMask($this, $flag);
         }
 
-        $this->mask &= ~$flag;
+        $this->set($this->mask & ~$flag);
     }
 
     /**
@@ -148,6 +161,80 @@ class Mask implements \JsonSerializable
     public function get(): int
     {
         return $this->mask;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getFlags(): array
+    {
+        return $this->flags;
+    }
+
+    /**
+     * @param int $mask
+     */
+    public function set(int $mask)
+    {
+        $this->mask = $mask;
+        $this->flags = $this->extractFlags();
+        $this->rewind();
+    }
+
+    /**
+     * Return the current element
+     *
+     * @link  http://php.net/manual/en/iterator.current.php
+     * @return mixed Can return any type.
+     */
+    public function current()
+    {
+        return isset($this->flags[$this->iteratorPosition]) ? $this->flags[$this->iteratorPosition] : null;
+    }
+
+    /**
+     * Move forward to next element
+     *
+     * @link  http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     */
+    public function next()
+    {
+        ++$this->iteratorPosition;
+    }
+
+    /**
+     * Return the key of the current element
+     *
+     * @link  http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     */
+    public function key()
+    {
+        return $this->iteratorPosition;
+    }
+
+    /**
+     * Checks if current position is valid
+     *
+     * @link  http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     *        Returns true on success or false on failure.
+     */
+    public function valid()
+    {
+        return isset($this->flags[$this->iteratorPosition]);
+    }
+
+    /**
+     * Rewind the Iterator to the first element
+     *
+     * @link  http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     */
+    public function rewind()
+    {
+        $this->iteratorPosition = 0;
     }
 
     /**
@@ -164,5 +251,22 @@ class Mask implements \JsonSerializable
     public function jsonSerialize(): int
     {
         return $this->mask;
+    }
+
+    /**
+     * @return int[]
+     */
+    protected function extractFlags(): array
+    {
+        $flags = [];
+        for ($i = 1; $i <= 32; ++$i) {
+            $flag = (int) pow(2, $i);
+
+            if ($this->has($flag)) {
+                $flags[] = $flag;
+            }
+        }
+
+        return $flags;
     }
 }

@@ -46,6 +46,22 @@ class MaskTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($mask->has(Mask::FLAG_13));
     }
 
+    public function testIfHasFlagWithoutEmpty()
+    {
+        $mask = new Mask(Mask::FLAG_13);
+
+        $this->assertFalse($mask->has(Mask::FLAG_3));
+        $this->assertTrue($mask->has(Mask::FLAG_13));
+    }
+
+    public function testIfHasFlagFromInteger()
+    {
+        $mask = new Mask(4096);
+
+        $this->assertFalse($mask->has(Mask::FLAG_3));
+        $this->assertTrue($mask->has(Mask::FLAG_13));
+    }
+
     public function testIfHasAllFlags()
     {
         $mask = new Mask(Mask::EMPTY_MASK | Mask::FLAG_3 | Mask::FLAG_13 | Mask::FLAG_23);
@@ -120,5 +136,96 @@ class MaskTest extends \PHPUnit_Framework_TestCase
         $mask = new Mask();
 
         $mask->remove(Mask::FLAG_13);
+    }
+
+    public function testGetFlags()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $this->assertSame(
+            [
+                Mask::FLAG_9,
+                Mask::FLAG_21,
+            ],
+            $mask->getFlags()
+        );
+    }
+
+    public function testGetFlagsAfterAdd()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $mask->add(Mask::FLAG_19);
+
+        $this->assertSame(
+            [
+                Mask::FLAG_9,
+                Mask::FLAG_19,
+                Mask::FLAG_21,
+            ],
+            $mask->getFlags()
+        );
+    }
+
+    public function testGetFlagsAfterRemove()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $mask->remove(Mask::FLAG_21);
+
+        $this->assertSame(
+            [
+                Mask::FLAG_9,
+            ],
+            $mask->getFlags()
+        );
+    }
+
+    public function testIterator()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $output = [];
+        foreach ($mask as $flag) {
+            $output[] = $flag;
+        }
+
+        $this->assertSame(
+            [
+                Mask::FLAG_9,
+                Mask::FLAG_21
+            ],
+            $output
+        );
+    }
+
+    public function testIteratorCurrent()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $this->assertSame(Mask::FLAG_9, $mask->current());
+        $this->assertSame(0, $mask->key());
+    }
+
+    public function testIteratorNext()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $mask->next();
+        $this->assertSame(Mask::FLAG_21, $mask->current());
+        $this->assertSame(1, $mask->key());
+
+        $mask->next();
+        $this->assertNull($mask->current());
+        $this->assertSame(2, $mask->key());
+    }
+
+    public function testIteratorResetNext()
+    {
+        $mask = new Mask(Mask::FLAG_9 | Mask::FLAG_21);
+
+        $mask->next();
+        $mask->rewind();
+        $this->assertSame(Mask::FLAG_9, $mask->current());
     }
 }
