@@ -8,6 +8,14 @@ class MaskTest extends \PHPUnit_Framework_TestCase
 {
     const TEST_MASK = 42;
 
+    /**
+     * @expectedException \Abibidu\Bit\MaskException
+     */
+    public function testConstructorFailsOnInvalidMask()
+    {
+        new Mask(-1);
+    }
+
     public function testGetter()
     {
         $mask = new Mask(self::TEST_MASK);

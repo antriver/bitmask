@@ -173,9 +173,15 @@ class Mask implements JsonSerializable, Iterator
 
     /**
      * @param int $mask
+     *
+     * @throws MaskException
      */
     public function set(int $mask)
     {
+        if ($mask < 0) {
+            throw MaskException::whenFlagIsNegative($this);
+        }
+
         $this->mask = $mask;
         $this->flags = $this->extractFlags();
         $this->rewind();
